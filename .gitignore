@@ -1,3 +1,5 @@
 **/__pycache__/
 weights
 data
+wandb
+adapter_weights
