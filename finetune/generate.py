@@ -7,6 +7,7 @@ from peft import PeftModel
 from transformers import GenerationConfig, LlamaForCausalLM, LlamaTokenizer
 from dataloaders import SFTDataLoader
 
+from prompter import Prompter
 
 
 device = "cuda"
@@ -14,14 +15,14 @@ device = "cuda"
 def main(
     load_8bit: bool = False,
     base_model: str = "weights/vicuna-7b",
-    lora_weights: str = "adapter_weights/finetuned",
+    lora_weights: str = "adapter_weights/lora",
     base_instruction: str = "Write a passage of a financial contract that answers the user's question",
 ):
     assert (
         base_model
     ), "Please specify a --base_model, e.g. --base_model='huggyllama/llama-7b'"
 
-    dataloader = SFTDataLoader(None, None) # TODO clean up
+    prompter = Prompter()
     tokenizer = LlamaTokenizer.from_pretrained(base_model)
     model = LlamaForCausalLM.from_pretrained(
         base_model,
@@ -57,11 +58,7 @@ def main(
         max_new_tokens=200,
         **kwargs,
     ):
-        prompt = dataloader.generate_prompt({
-            "instruction": instruction,
-            "input": input,
-            "output": "",
-        })
+        prompt = prompter.generate_prompt(instruction, input)
         inputs = tokenizer(prompt, return_tensors="pt")
         input_ids = inputs["input_ids"].to(device)
         generation_config = GenerationConfig(
@@ -82,7 +79,7 @@ def main(
             )
         s = generation_output.sequences[0]
         output = tokenizer.decode(s)
-        return dataloader.parse_output(output)
+        return prompter.get_response(output)
     
 
     # input loop
