@@ -6,9 +6,8 @@ import torch
 import transformers
 from peft import PeftModel
 from transformers import GenerationConfig, LlamaForCausalLM, LlamaTokenizer
-from dataloaders import SFTDataLoader
 
-from prompter import Prompter
+from .prompter import Prompter
 
 
 device = "cuda"
@@ -86,21 +85,14 @@ def load_model_for_eval(
     return evaluate
    
 
-def batch_generate(
-    questions: List[str],
-    instruction: str,
-    model_size: str = "7",
-    use_finetuned: bool = True,
-):
+def load_model_from_size(model_size: str = "7",use_finetuned: bool = True):
     base_model = f"weights/vicuna-{model_size}b"
     if model_size == "7":
         lora_weights = f"adapter_weights/lora-400"
     else:
         lora_weights = f"adapter_weights/lora13-200"
     evaluate = load_model_for_eval(False, base_model, lora_weights, use_finetuned)
-
-    answers = [evaluate(instruction, question) for question in questions]
-    return answers
+    return evaluate
 
 def main(
     load_8bit: bool = False,
