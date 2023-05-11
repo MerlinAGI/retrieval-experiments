@@ -4,3 +4,4 @@ transformers
 sentencepiece
 peft
 bitsandbytes
+datasets
