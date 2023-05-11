@@ -4,7 +4,7 @@ from datasets import load_dataset
 
 
 class SFTDataLoader(object):
-    def __init__(self, data, CUTOFF_LEN, VAL_SET_SIZE, tokenizer) -> None:
+    def __init__(self, data, tokenizer, CUTOFF_LEN=256, VAL_SET_SIZE=0) -> None:
         super(SFTDataLoader, self).__init__()
 
         self.data = data
@@ -13,6 +13,9 @@ class SFTDataLoader(object):
 
         self.tokenizer = tokenizer
 
+    def parse_output(self, full_output):
+        return full_output.split("### Response:")[1].strip()
+    
     def generate_prompt(self, data_point):
         # sorry about the formatting disaster gotta move fast
         if data_point["input"]:
