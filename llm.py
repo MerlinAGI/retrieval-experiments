@@ -19,13 +19,13 @@ else:
     cache = {}
 
 
-def complete(sys_promt, user_input, model="gpt-4", temp=0.0, max_tokens=None, n=1, return_list=False):
+def complete(sys_promt, user_input, model="gpt-4", temp=0.0, max_tokens=None, n=1, return_list=False, ignore_cache=False):
     if model=="turbo":
         model = "gpt-3.5-turbo"
     elif model=="gpt-4":
         pass
     else:
-        return llm_finetuned.complete(sys_promt, user_input, model, max_tokens=max_tokens, return_list=return_list)
+        return llm_finetuned.complete(sys_promt, user_input, model, max_tokens=max_tokens, return_list=return_list, ignore_cache=ignore_cache)
     
     messages = [
         {"role": "system", "content": sys_promt},

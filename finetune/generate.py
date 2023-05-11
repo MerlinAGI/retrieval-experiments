@@ -7,15 +7,18 @@ import transformers
 from peft import PeftModel
 from transformers import GenerationConfig, LlamaForCausalLM, LlamaTokenizer
 
-from .prompter import Prompter
+try:
+    from .prompter import Prompter
+except ImportError:
+    from prompter import Prompter
 
 
 device = "cuda"
 
 def load_model_for_eval(
     load_8bit: bool = False,
-    base_model: str = "weights/vicuna-13b",
-    lora_weights: str = "adapter_weights/lora13-200",
+    base_model: str = "weights/vicuna-7b",
+    lora_weights: str = "adapter_weights/lora-400",
     use_finetuned: bool = True,
 ):
     assert (
@@ -53,9 +56,9 @@ def load_model_for_eval(
         instruction,
         input=None,
         temperature=0.1,
-        top_p=0.75,
+        top_p=1,
         top_k=40,
-        num_beams=4,
+        num_beams=6,
         max_new_tokens=150,
         **kwargs,
     ):
@@ -96,8 +99,8 @@ def load_model_from_size(model_size: str = "7",use_finetuned: bool = True):
 
 def main(
     load_8bit: bool = False,
-    base_model: str = "weights/vicuna-13b",
-    lora_weights: str = "adapter_weights/lora13-200",
+    base_model: str = "weights/vicuna-7b",
+    lora_weights: str = "adapter_weights/lora-600",
     base_instruction: str = "Write a passage of a financial contract that answers the user's question",
 ):
     evaluate = load_model_for_eval(load_8bit, base_model, lora_weights)
