@@ -3,5 +3,6 @@ weights
 data
 wandb
 cache
+output
 adapter_weights
 .env

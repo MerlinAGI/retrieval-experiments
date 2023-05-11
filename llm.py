@@ -3,6 +3,8 @@ import dotenv
 import os
 import json
 
+import llm_finetuned
+
 dotenv.load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -16,9 +18,15 @@ if os.path.exists(CACHE_FILE):
 else:
     cache = {}
 
+
 def complete(sys_promt, user_input, model="gpt-4", temp=0.0, max_tokens=None, n=1, return_list=False):
     if model=="turbo":
         model = "gpt-3.5-turbo"
+    elif model=="gpt-4":
+        pass
+    else:
+        return llm_finetuned.complete(sys_promt, user_input, model, max_tokens=max_tokens, return_list=return_list)
+    
     messages = [
         {"role": "system", "content": sys_promt},
         {"role": "user", "content": user_input},
@@ -54,3 +62,4 @@ def complete_json(sys_promt, user_input, model="gpt-4"):
         print("Error decoding JSON:")
         print(res)
         return None
+    

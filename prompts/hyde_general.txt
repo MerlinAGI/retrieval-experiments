@@ -1,0 +1,1 @@
+Write a passage of a financial contract that answers the user's question.

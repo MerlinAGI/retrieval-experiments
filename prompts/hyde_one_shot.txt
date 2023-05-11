@@ -1,0 +1,7 @@
+Write a passage of a financial contract that answers the user's question.
+
+As reference, this is the beginning of the document:
+
+MASTER SERVICES AGREEMENT
+This Master Services Agreement is between Juniper Networks, Inc., a Delaware corporation with a principal place of business at 1133 Innovation Way, Sunnyvale, California 94089 (Customer), and International Business Machines Corporation, a New York corporation with a principal place of business at One New Orchard Road, Armonk, New York 10504 (Provider).
+Provider is in the business of providing outsourcing, professional and other related services to customers. Customer Group desires to obtain certain outsourcing, professional and other related services from Provider, and Provider desires to provide such services to Customer Group, such Services as described in the Statements of Work to be entered into from time to time by Customer Group and Provider pursuant to the terms and conditions of this MSA. Customer and Provider desire to set forth in this MSA the general terms and conditions pursuant to which Provider will provide such services to Customer and all other members of Customer Group under the applicable Statements of Work.

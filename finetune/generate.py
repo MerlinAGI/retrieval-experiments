@@ -1,6 +1,7 @@
 import os
 import sys
 
+from typing import List
 import torch
 import transformers
 from peft import PeftModel
@@ -12,11 +13,11 @@ from prompter import Prompter
 
 device = "cuda"
 
-def main(
+def load_model_for_eval(
     load_8bit: bool = False,
     base_model: str = "weights/vicuna-13b",
     lora_weights: str = "adapter_weights/lora13-200",
-    base_instruction: str = "Write a passage of a financial contract that answers the user's question",
+    use_finetuned: bool = True,
 ):
     assert (
         base_model
@@ -30,11 +31,12 @@ def main(
         torch_dtype=torch.float16,
         device_map="auto",
     )
-    model = PeftModel.from_pretrained(
-        model,
-        lora_weights,
-        torch_dtype=torch.float16,
-    )
+    if use_finetuned:
+        model = PeftModel.from_pretrained(
+            model,
+            lora_weights,
+            torch_dtype=torch.float16,
+        )
 
     # unwind broken decapoda-research config
     model.config.pad_token_id = tokenizer.pad_token_id = 0  # unk
@@ -55,7 +57,7 @@ def main(
         top_p=0.75,
         top_k=40,
         num_beams=4,
-        max_new_tokens=200,
+        max_new_tokens=150,
         **kwargs,
     ):
         prompt = prompter.generate_prompt(instruction, input)
@@ -81,13 +83,38 @@ def main(
         output = tokenizer.decode(s)
         return prompter.get_response(output)
     
+    return evaluate
+   
+
+def batch_generate(
+    questions: List[str],
+    instruction: str,
+    model_size: str = "7",
+    use_finetuned: bool = True,
+):
+    base_model = f"weights/vicuna-{model_size}b"
+    if model_size == "7":
+        lora_weights = f"adapter_weights/lora-400"
+    else:
+        lora_weights = f"adapter_weights/lora13-200"
+    evaluate = load_model_for_eval(False, base_model, lora_weights, use_finetuned)
+
+    answers = [evaluate(instruction, question) for question in questions]
+    return answers
+
+def main(
+    load_8bit: bool = False,
+    base_model: str = "weights/vicuna-13b",
+    lora_weights: str = "adapter_weights/lora13-200",
+    base_instruction: str = "Write a passage of a financial contract that answers the user's question",
+):
+    evaluate = load_model_for_eval(load_8bit, base_model, lora_weights)
 
     # input loop
     while True:
         user_input = input("\n\n\nInput: ")
         print("\n")
         print(evaluate(base_instruction, user_input))
-    
 
 
 
