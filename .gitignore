@@ -3,3 +3,4 @@ weights
 data
 wandb
 adapter_weights
+.env

@@ -21,13 +21,13 @@ from prompter import Prompter
 
 def train(
     # model/data params
-    base_model: str = "weights/vicuna-7b",
+    base_model: str = "weights/vicuna-13b",
     data_path: str = "data/datasets/merge.jsonl",
-    output_dir: str = "adapter_weights/lora",
+    output_dir: str = "adapter_weights/lora13-200",
     # training hyperparams
     batch_size: int = 128,
     micro_batch_size: int = 4,
-    num_epochs: int = 10,
+    num_epochs: int = 100,
     learning_rate: float = 3e-4,
     cutoff_len: int = 256,
     val_set_size: int = 0,

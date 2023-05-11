@@ -14,8 +14,8 @@ device = "cuda"
 
 def main(
     load_8bit: bool = False,
-    base_model: str = "weights/vicuna-7b",
-    lora_weights: str = "adapter_weights/lora",
+    base_model: str = "weights/vicuna-13b",
+    lora_weights: str = "adapter_weights/lora13-200",
     base_instruction: str = "Write a passage of a financial contract that answers the user's question",
 ):
     assert (
@@ -84,7 +84,8 @@ def main(
 
     # input loop
     while True:
-        user_input = input("Input: ")
+        user_input = input("\n\n\nInput: ")
+        print("\n")
         print(evaluate(base_instruction, user_input))
     
 

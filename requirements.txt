@@ -8,3 +8,8 @@ datasets
 wandb
 click
 protobuf==3.20
+tiktoken
+langchain
+openai
+numpy
+python-dotenv

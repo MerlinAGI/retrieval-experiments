@@ -4,7 +4,7 @@ import json
 
 
 def main(
-  file_path: str = "data/input/MSA_Jupiner_IBM.txt",
+  file_path: str = "data/input/MSA_Juniper_IBM.txt",
   output_path: str = "data/datasets/merge.jsonl"
 ):
   with open(file_path, "r") as f:
