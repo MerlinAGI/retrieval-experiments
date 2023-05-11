@@ -1,0 +1,30 @@
+[
+  {
+    "q": "Will IBM help us getting started? Will they support us on the way?",
+    "a": "once every Contract Year or upon request after at least thirty(30) days"
+  },
+  {
+    "q": "If we get aquired, do we have to stick to IBM?",
+    "a": "Change in Control of Customer, Customer may, by giving Provider at least ninety"
+  },
+  {
+    "q": "Is IBM allowed to subcontract any of its obligations under the MSA to third parties, and if so, under what conditions?",
+    "a": "Provider may not delegate or subcontract any of the Services or any of Providers obligations under the Agreement, in whole or in part, without obtaining Customers prior written consent."
+  },
+  {
+    "q": "Are they allowed to use subcontractors?",
+    "a": "Provider may not delegate or subcontract any of the Services or any of Providers obligations under the Agreement, in whole or in part, without obtaining Customers prior written consent."
+  },
+  {
+    "q": "Can IBM change the price? Under which conditions?",
+    "a": "12.5Extraordinary Events."
+  },
+  {
+    "q": "Are they allowed to share our data with third parties?",
+    "a": " Customer may disclose the Providers Confidential Information to"
+  },
+  {
+    "q": "What happens if IBM get hacked and customer data is leaked?",
+    "a": "Security Incident has occurred, notify the disclosing Party of any"
+  }
+]
