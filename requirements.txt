@@ -1,0 +1,6 @@
+jsonargparse
+huggingface_hub
+transformers
+sentencepiece
+peft
+bitsandbytes
