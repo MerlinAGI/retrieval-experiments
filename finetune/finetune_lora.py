@@ -44,7 +44,7 @@ MICRO_BATCH_SIZE = 4  # this could actually be 5 but i like powers of 2
 BATCH_SIZE = 128
 MAX_STEPS = None
 GRADIENT_ACCUMULATION_STEPS = BATCH_SIZE // MICRO_BATCH_SIZE
-EPOCHS = 3  # we don't always need 3 tbh
+EPOCHS = 10
 LEARNING_RATE = 3e-4  # the Karpathy constant
 LORA_R = 8
 LORA_ALPHA = 16
@@ -173,9 +173,9 @@ trainer = transformers.Trainer(
 model.config.use_cache = False
 
 old_state_dict = model.state_dict
-model.state_dict = (
-    lambda self, *_, **__: get_peft_model_state_dict(self, old_state_dict())
-).__get__(model, type(model))
+# model.state_dict = (
+#     lambda self, *_, **__: get_peft_model_state_dict(self, old_state_dict())
+# ).__get__(model, type(model))
 
 if torch.__version__ >= "2" and sys.platform != "win32":
     model = torch.compile(model)
