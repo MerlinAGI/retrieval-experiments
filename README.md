@@ -3,5 +3,4 @@
 Finetune an LLM on your own data for better hypothetical dense retrievals.
 
 
-![Rank with hyde](output/General_prompt.png)
-![Rank with fine tuned vicuna](output/Vicuna.png)
+![Rank with hyde](output/Comparison.png)
